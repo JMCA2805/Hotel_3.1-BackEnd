@@ -7,10 +7,10 @@ class reservasController {
     agregarReserva = async (req, res) => {
   try {
 
-    const { nombre, apellido, cedula, correo, telefono, fechaEntrada, fechaSalida, nPersonas, tHabitacion } = req.body
+    const { idUsuario, nombre, apellido, cedula, correo, telefono, fechaEntrada, fechaSalida, nPersonas, tHabitacion } = req.body
     
     const reserva = {
-        idUsuario: "12485486571",
+        idUsuario,
         nombre,
         apellido,
         cedula,
