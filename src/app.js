@@ -25,9 +25,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // ROUTES
 const indexRuta = require("./routes/index");
 const authRutas = require("./routes/auth.js");
+const reservarRuta = require("./routes/reservar");
 
 app.use("/", indexRuta);
 app.use("/auth", authRutas);
+app.use("/reservar", reservarRuta);
 
 
 module.exports = app;
