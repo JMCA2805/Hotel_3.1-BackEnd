@@ -5,6 +5,7 @@ const reservaSchema = new Schema({
   nombre: { type: String, required: true },
   apellido: {type: String, required: true},
   correo: { type: String, required: true },
+  cedula: { type: String, required: true },
   telefono: { type: String, required: true },
   fechaEntrada: { type: Date, required: true },
   fechaSalida: { type: Date, required: true },
