@@ -35,6 +35,16 @@ class reservasController {
   }; 
 }
 
+obtenerReservas = async (req, res) => {
+  try {
+    const reservas = await Reservas.find();
+    res.status(200).json(reservas);
+  } catch (error) {
+    res.status(500).send({ Error: 'Error al obtener las reservas' });
+  }
+};
+
+
 };
 /*
 { 
