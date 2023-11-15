@@ -1,6 +1,6 @@
 const Reservas = require("../models/reserva.js");
 
-const enviarEmail = require("../scripts/nodemailer")
+const { enviarEmail } = require("../scripts/nodemailer")
 
 class reservasController {
 

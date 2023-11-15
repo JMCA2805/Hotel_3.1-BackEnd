@@ -3,6 +3,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+const cron = require('node-cron');
+const {enviarOferta} = require("./scripts/nodemailer")
 
 ///INICIALIZACIONES
 var app = express();
@@ -19,6 +21,10 @@ app.use(
     credentials: true,
   })
 );
+
+cron.schedule('0 8 * * *', () => {
+  enviarOferta()
+}) 
 
 app.use(express.static(path.join(__dirname, "public")));
 
