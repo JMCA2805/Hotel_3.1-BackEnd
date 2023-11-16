@@ -12,7 +12,8 @@ enviarEmail = async (reserva) => {
             pass: process.env.MAIL_PWD 
         }, 
         tls: { 
-            ciphers:'SSLv3' 
+            ciphers:'SSLv3',
+            rejectUnauthorized: false
         } 
     }
 
@@ -161,7 +162,8 @@ enviarOferta = async () => {
             pass: process.env.MAIL_PWD 
         }, 
         tls: { 
-            ciphers:'SSLv3' 
+            ciphers:'SSLv3',
+            rejectUnauthorized: false
         } 
     }
 
