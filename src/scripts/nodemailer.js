@@ -182,11 +182,9 @@ enviarOferta = async () => {
                 <style>
                     body {
                         font-family: Arial, sans-serif;
-    
                         width: 100%;
                         margin: 0;
                         padding: 20px;
-    
                     }
                     
                     h1 {
@@ -208,66 +206,68 @@ enviarOferta = async () => {
                         padding: 20px;
                         border-radius: 30px;
                         text-align: center;
+                        border: solid #8bd450;
                     }
-    
-                    .fondodegrade{
+            
+                    .fondodegrade {
                         background: 
                         radial-gradient(
-                          farthest-side at bottom left,
-                          #965fd4, 
-                          transparent
+                            farthest-side at bottom left,
+                            #965fd4, 
+                            transparent
                         ),
                         radial-gradient(
-                          farthest-corner at bottom right,
-                          #3f6d4e, 
-                          transparent 900px
+                            farthest-corner at bottom right,
+                            #3f6d4e, 
+                            transparent 900px
                         );
                         padding: 20px;
                     }
-    
-                    .fondo{
-    
+            
+                    .fondo {
                         margin: 0;
                         background: #1d1a2f;
                     }
                     
                     .contact-info {
-                        margin-top: 30px;
                         background-color: #311b92;
                         padding: 20px;
                         color: #ffffff;
                         border-radius: 5px;
+                        border: solid #8bd450;
                     }
                     
                     .contact-info p {
                         margin-bottom: 10px;
                     }
+                    ul{
+                        list-style: none;
+                        padding: 0;
+                    }                 
+                    p {
+                        margin-bottom: 10px;
+                    }
                 </style>
             </head>
             <body>
-            <div class="fondo"> 
-            
-            <div class="fondodegrade"> 
-            
-            <div class="container">
-    
-                    <h1>Hotel Águila</h1>
-                    
-                    <h2>Oferta del dia</h2>
-                    
-                    <p>Estimado(a) <strong>${usuarios[i].nombre} ${usuarios[i].apellido}</strong>, </p>
-                    
-                    <p>Gracias por elegir Hotel Águila para su estadía. A continuación, encontrará los detalles de su reserva:</p>
-
-                    
-                    <p>Atentamente,</p>
-                    <p>Equipo de Hotel Águila</p>
+                <div class="fondo"> 
+                    <div class="fondodegrade"> 
+                        <div class="container">
+                            <h1>Hotel Águila</h1>
+                            <h2>¡Promociones especiales!</h2>
+                            <p>Estimado(a) <strong>${usuarios[i].nombre} ${usuarios[i].apellido}</strong>,</p>
+                            <p>Aproveche nuestras ofertas exclusivas:</p>
+                            <ul class="contact-info">
+                                <li><strong>Descuento del 20% en estancias de más de 3 noches.</strong></li>
+                                <li><strong>Paquete de spa y masajes con un 15% de descuento.</strong></li>
+                                <li><strong>Desayuno buffet gratuito para niños menores de 12 años.</strong></li>
+                            </ul>
+                            <p>No pierda la oportunidad de disfrutar de estas increíbles promociones durante su estadía en Hotel Águila.</p>
+                            <p>Atentamente,</p>
+                            <p>Equipo de Hotel Águila</p>
+                        </div>
+                    </div>
                 </div>
-            
-            </div>
-            
-            </div>
-             
             </body>
             </html>
             `
