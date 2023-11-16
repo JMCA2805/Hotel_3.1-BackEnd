@@ -1,51 +1,78 @@
 const Reservas = require("../models/reserva.js");
 
-const { enviarEmail } = require("../scripts/nodemailer")
+const { enviarEmail } = require("../scripts/nodemailer");
 
 class reservasController {
-
-    agregarReserva = async (req, res) => {
-  try {
-
-    const { idUsuario, nombre, apellido, cedula, correo, telefono, fechaEntrada, fechaSalida, nPersonas, tHabitacion } = req.body
-    
-    const reserva = {
+  agregarReserva = async (req, res) => {
+    try {
+      const {
         idUsuario,
         nombre,
         apellido,
         cedula,
-        correo ,
+        correo,
         telefono,
         fechaEntrada,
         fechaSalida,
         nPersonas,
-        tHabitacion
+        tHabitacion,
+      } = req.body;
+
+      const reserva = {
+        idUsuario,
+        nombre,
+        apellido,
+        cedula,
+        correo,
+        telefono,
+        fechaEntrada,
+        fechaSalida,
+        nPersonas,
+        tHabitacion,
+      };
+
+      enviarEmail(reserva);
+
+      const nuevaReserva = new Reservas(reserva);
+
+      nuevaReserva.save();
+
+      res.status(200).send("Agregado correctamente");
+    } catch (error) {
+      res.status(500).send({ Error: "Error agregar la reserva" });
     }
+  };
 
-    enviarEmail(reserva)
+  obtenerReservas = async (req, res) => {
+    try {
+      const reservas = await Reservas.find();
+      res.status(200).json(reservas);
+    } catch (error) {
+      res.status(500).send({ Error: "Error al obtener las reservas" });
+    }
+  };
 
-    const nuevaReserva = new Reservas(reserva)
+  editarReserva = async (req, res) => {
+    try {
+      const { id, datosActualizados } = req.body;
 
-    nuevaReserva.save()
+      const reserva = await Reservas.findOne({ _id:id });
 
-    res.status(200).send('Agregado correctamente')
+      if (!reserva) {
+        return res.status(404).json({ mensaje: "Reserva no encontrado" });
+      }
 
-  } catch (error) {
-    res.status(500).send({ Error: 'Error agregar la reserva' });
-  }; 
+      await Reservas.findOneAndUpdate({ _id:id }, datosActualizados, {
+        new: true,
+      });
+
+      res.json({ mensaje: "Reserva editada correctamente" });
+    } catch (error) {
+      console.error("Error al editar la reserva:", error);
+      res.status(500).json({ mensaje: "Error al editar la reserva" });
+    }
+  };
 }
-
-obtenerReservas = async (req, res) => {
-  try {
-    const reservas = await Reservas.find();
-    res.status(200).json(reservas);
-  } catch (error) {
-    res.status(500).send({ Error: 'Error al obtener las reservas' });
-  }
-};
-
-
-};
 /*
 { 
     "nombre": "Jose", 
