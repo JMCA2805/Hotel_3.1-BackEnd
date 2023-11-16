@@ -3,6 +3,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+const cron = require('node-cron');
+const {enviarOferta} = require("./scripts/nodemailer")
 
 ///INICIALIZACIONES
 var app = express();
@@ -20,14 +22,20 @@ app.use(
   })
 );
 
+cron.schedule('0 8 * * *', () => {
+  enviarOferta()
+}) 
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES
 const indexRuta = require("./routes/index");
 const authRutas = require("./routes/auth.js");
+const reservarRuta = require("./routes/reservar");
 
 app.use("/", indexRuta);
 app.use("/auth", authRutas);
+app.use("/reservar", reservarRuta);
 
 
 module.exports = app;
