@@ -4,7 +4,7 @@ class habitacionesController {
   // Controlador para guardar una nueva Habitacion
   agregarHabitaciones = async (req, res) => {
     try {
-      const { nombre, descripcion, tarifa, comodidades } = req.body;
+      const { nombre, descripcion, tarifa, comodidades, cantidad } = req.body;
       const imagenBuffer = req.file.buffer;
       const contentType = req.file.mimetype;
         const arrayComodidades = JSON.parse(comodidades);
@@ -19,7 +19,8 @@ class habitacionesController {
             descripcion,
             comodidades: arrayComodidades,
             imagen: { data: imagenBuffer, contentType },
-            tarifa
+            tarifa,
+            cantidad
         });
 
         await nuevaHabitacion.save();
@@ -52,6 +53,7 @@ class habitacionesController {
           tarifa: habitacionesT[i].tarifa,
           comodidades: habitacionesT[i].comodidades,
           imagen: imagenCompleta,
+          cantidad: habitacionesT[i].cantidad,
         };
       }
 
