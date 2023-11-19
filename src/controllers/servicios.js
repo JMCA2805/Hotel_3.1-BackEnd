@@ -35,22 +35,19 @@ class ServiciosController {
       let servicioss = [];
 
       for (let i = 0; i < serviciosobt.length; i++) {
-        data = serviciosobt[i].imagen.data;
+        data = serviciosobt[i].icono.data;
         imagenCompleta =
           "data:" +
-          serviciosobt[i].imagen.contentType +
+          serviciosobt[i].icono.contentType +
           ";base64," +
           data.toString("base64");
-        console.log(data);
 
         servicioss[i] = {
-          titulo: serviciosobt[i].titulo,
-          texto: serviciosobt[i].texto,
+          servicio: serviciosobt[i].servicio,
+          descripcion: serviciosobt[i].descripcion,
           imagen: imagenCompleta,
         };
       }
-
-      console.log(servicioss);
 
       if (servicioss.length === 0) {
         res.status(200).send("No hay servicios en la Base de Datos");
@@ -58,6 +55,7 @@ class ServiciosController {
         res.status(200).json(servicioss);
       }
     } catch (error) {
+      console.log(error)
       res.status(500).json({ Error: "Error al obtener servicioss" });
     }
   };
