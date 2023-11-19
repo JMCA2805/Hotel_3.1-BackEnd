@@ -37,11 +37,13 @@ const articulosRuta = require("./routes/articulos.js");
 const authRutas = require("./routes/auth.js");
 const reservarRuta = require("./routes/reservar");
 const comentariosRuta = require("./routes/comentarios");
+const serviciosRuta = require("./routes/servicios.js");
 
 app.use("/articulos", articulosRuta);
 app.use("/auth", authRutas);
 app.use("/reservar", reservarRuta);
 app.use("/comentarios", comentariosRuta);
+app.use("/servicios", serviciosRuta);
 
 
 module.exports = app;
