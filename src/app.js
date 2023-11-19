@@ -5,6 +5,8 @@ var logger = require("morgan");
 var cors = require("cors");
 const cron = require('node-cron');
 const {enviarOferta} = require("./scripts/nodemailer")
+const multer = require('multer');
+
 
 ///INICIALIZACIONES
 var app = express();
@@ -27,14 +29,16 @@ cron.schedule('0 8 * * *', () => {
 }) 
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(`${__dirname}/uploads/`))
+
 
 // ROUTES
-const indexRuta = require("./routes/index");
+const articulosRuta = require("./routes/articulos.js");
 const authRutas = require("./routes/auth.js");
 const reservarRuta = require("./routes/reservar");
 const comentariosRuta = require("./routes/comentarios");
 
-app.use("/", indexRuta);
+app.use("/articulos", articulosRuta);
 app.use("/auth", authRutas);
 app.use("/reservar", reservarRuta);
 app.use("/comentarios", comentariosRuta);

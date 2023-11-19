@@ -20,10 +20,15 @@ router.put('/users/editar/', (req, res) => {
     controller.editarUsuario(req, res);
   });
   
-router.get('/user/:id', verifyToken, getUserById);
 router.post("/login", login);
-router.get('/user/:id', verifyToken, getUserById);
 
+router.delete('/eliminarUsuario', (req, res) => {
+  controller.eliminarUsuario(req, res);
+});
+
+router.get('/usuarioObtenido/:id', (req, res) => {
+  getUserById(req, res);
+});
 
 
 

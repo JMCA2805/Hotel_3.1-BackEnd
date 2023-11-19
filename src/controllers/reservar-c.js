@@ -72,7 +72,28 @@ class reservasController {
       res.status(500).json({ mensaje: "Error al editar la reserva" });
     }
   };
+
+  
+  eliminarReserva = async (req, res) => {
+    try {
+      const id = req.body.id;
+  
+      const reserva = await Reservas.findOne({ _id: id });
+      if (!reserva) {
+        return res.status(404).json({ mensaje: 'Reserva no encontrada' });
+      }
+  
+      await Reservas.deleteOne({_id: id});
+  
+      res.json({ mensaje: 'Reserva eliminada correctamente' });
+      
+    } catch (error) {
+      console.error('Error al eliminar la reserva', error);
+      res.status(500).json({ mensaje: 'Error al eliminar la reserva' });
+    }
+  };
 }
+
 /*
 { 
     "nombre": "Jose", 
@@ -85,6 +106,8 @@ class reservasController {
     "nPersonas": 2, 
     "tHabitacion": "Matrimonial" 
 }*/
+
+
 
 const reservarC = new reservasController();
 
