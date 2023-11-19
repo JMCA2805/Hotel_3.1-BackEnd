@@ -32,10 +32,12 @@ app.use(express.static(path.join(__dirname, "public")));
 const indexRuta = require("./routes/index");
 const authRutas = require("./routes/auth.js");
 const reservarRuta = require("./routes/reservar");
+const comentariosRuta = require("./routes/comentarios");
 
 app.use("/", indexRuta);
 app.use("/auth", authRutas);
 app.use("/reservar", reservarRuta);
+app.use("/comentarios", comentariosRuta);
 
 
 module.exports = app;
