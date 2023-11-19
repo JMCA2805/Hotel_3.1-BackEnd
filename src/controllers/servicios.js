@@ -48,14 +48,14 @@ class ServiciosController {
           imagen: imagenCompleta,
         };
       }
-
+      
       if (servicioss.length === 0) {
         res.status(200).send("No hay servicios en la Base de Datos");
       } else {
         res.status(200).json(servicioss);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).json({ Error: "Error al obtener servicioss" });
     }
   };
