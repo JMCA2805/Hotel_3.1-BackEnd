@@ -42,7 +42,6 @@ class articulosController {
           articulosscom[i].imagen.contentType +
           ";base64," +
           data.toString("base64");
-        console.log(data);
 
         articuloss[i] = {
           titulo: articulosscom[i].titulo,
@@ -60,6 +59,25 @@ class articulosController {
       }
     } catch (error) {
       res.status(500).json({ Error: "Error al obtener articuloss" });
+    }
+  };
+
+  eliminarArticulo = async (req, res) => {
+    try {
+      const titulo = req.body.titulo;
+
+      const articulo = await articulos.findOne({ titulo: titulo });
+      if (!articulo) {
+        return res.status(404).json({ mensaje: 'articulos no encontrado' });
+      }
+
+      await articulos.deleteOne({'titulo': titulo});
+
+      res.json({ mensaje: 'Producto eliminado correctamente' });
+      
+    } catch (error) {
+      console.error('Error al eliminar el articulo', error);
+      res.status(500).json({ mensaje: 'Error al eliminar el articulo' });
     }
   };
 }
