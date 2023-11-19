@@ -7,10 +7,27 @@ const verifyToken = require("../middlewares/verifytoken.js")
 const controller = require('../controllers/user-c.js');
 const decodetoken = require('../middlewares/decodetoken')
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, '../uploads');
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 
 
-router.post("/register", register);
+
+router.post("/register", upload.single('imagen'), register);
+
+
 router.get("/decode", decodetoken)
 
 router.get("/users", controller.obtenerUsuarios)
