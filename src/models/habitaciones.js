@@ -22,6 +22,10 @@ const habitacionesEsquema = new Schema({
         type: Number,
         required: true
     },
+    cantidad: {
+        type: Number,
+        required: true
+    },
     review: {
         type: Array
     }
