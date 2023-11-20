@@ -50,7 +50,7 @@ class ServiciosController {
       }
       
       if (servicioss.length === 0) {
-        res.status(200).send("No hay servicios en la Base de Datos");
+        res.status(200).send("");
       } else {
         res.status(200).json(servicioss);
       }

@@ -50,8 +50,6 @@ class articulosController {
         };
       }
 
-      console.log(articuloss);
-
       if (articuloss.length === 0) {
         res.status(200).send("No hay articuloss en la Base de Datos");
       } else {
