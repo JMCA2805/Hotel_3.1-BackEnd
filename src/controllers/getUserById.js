@@ -11,10 +11,15 @@ const getUserById = async (req, res) => {
         });
       } else {
         let imagenCompleta;
+        let data
+        if(usuario.imagen.data == null){
+          imagenCompleta = '../public/usuario.png' 
+        }else{
+          data = usuario.imagen.data;
+          imagenCompleta ="data:" +usuario.imagen.contentType +";base64," + data.toString("base64");
+        }
 
-        let data = usuario.imagen.data;
 
-        imagenCompleta ="data:" +usuario.imagen.contentType +";base64," + data.toString("base64");
 
         const enviarPerfil = {
           id: usuario.id,
@@ -25,6 +30,8 @@ const getUserById = async (req, res) => {
           imagen: imagenCompleta,
           descripcion: usuario.descripcion
         }
+
+        console.log(enviarPerfil)
 
         res.json(enviarPerfil);
       }

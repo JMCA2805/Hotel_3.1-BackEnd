@@ -18,7 +18,10 @@ const register = async (req, res) => {
             apellido,
             correo,
             contraseña: contraseñaHasheada,
-            rol: 'usuario', // Asignar el rol de "Usuario"
+            rol: 'usuario',
+            imagen: {data: null, contentType: ""},
+            telefono: null,
+            descripcion: ""
           });
 
           nuevoUsuario
