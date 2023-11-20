@@ -77,6 +77,34 @@ class ServiciosController {
       res.status(500).json({ mensaje: 'Error al eliminar el servicio' });
     }
   };
+
+  
+  editarServicio = async (req, res) => {
+    try {
+      const { viejo, servicio, descripcion } = req.body;
+
+      const imagenBuffer = req.file.buffer;
+      const contentType = req.file.mimetype;
+  
+      const servicios = await Servicios.findOne({ servicio: viejo });
+  
+      if (!servicios) {
+        return res.status(404).json({ mensaje: "Servicio no encontrado" });
+      }
+
+      // Actualiza los datos del artículo
+      servicios.servicio = servicio;
+      servicios.descripcion = descripcion;
+      servicios.icono = { data: imagenBuffer, contentType };
+  
+      await servicios.save();
+  
+      res.json({ mensaje: "Servicio editado correctamente" });
+    } catch (error) {
+      console.error("Error al editar el servicio:", error);
+      res.status(500).json({ mensaje: "Error al editar el servicio" });
+    }
+  };
 }
 
 const serviciosC = new ServiciosController();

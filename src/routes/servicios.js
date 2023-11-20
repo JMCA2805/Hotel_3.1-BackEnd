@@ -30,4 +30,10 @@ router.post('/add', upload.single('icono'), (req, res) => {
 router.delete('/delete', (req, res) => {
   controller.eliminarServicio(req, res);
 });
+
+
+router.put('/editar', upload.single('icono'), (req, res) => {
+  controller.editarServicio(req, res);
+});
+
 module.exports = router;
