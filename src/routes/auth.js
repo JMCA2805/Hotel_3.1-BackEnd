@@ -23,8 +23,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: multer.memoryStorage() });
 
 
-
-
 router.post("/register", upload.single('imagen'), register);
 
 
@@ -35,12 +33,17 @@ router.get("/users", controller.obtenerUsuarios)
 
 router.put('/users/editar/', (req, res) => {
     controller.editarUsuario(req, res);
-  });
+});
   
 router.post("/login", login);
 
 router.delete('/eliminarUsuario', (req, res) => {
   controller.eliminarUsuario(req, res);
+});
+
+
+router.post('/users/:id', upload.single('imagen'), (req, res) => {
+  controller.editarFoto(req, res);
 });
 
 router.get('/usuarioObtenido/:id', (req, res) => {

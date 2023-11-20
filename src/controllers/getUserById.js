@@ -2,7 +2,6 @@ const Usuario = require("../models/user.js");
 
 const getUserById = async (req, res) => {
   const { id } = req.params; // Accede al ID de usuario desde los parámetros de la ruta
-  console.log(id);
 
   if (id) {
     Usuario.findById(id).then((usuario) => {
@@ -11,8 +10,30 @@ const getUserById = async (req, res) => {
           mensaje: "No se encontró ningún usuario con ese ID",
         });
       } else {
-        const { _id, contraseña, __v, ...resto } = usuario._doc;
-        res.json(resto);
+        let imagenCompleta;
+        let data
+        if(usuario.imagen.data == null){
+          imagenCompleta = '../public/usuario.png' 
+        }else{
+          data = usuario.imagen.data;
+          imagenCompleta ="data:" +usuario.imagen.contentType +";base64," + data.toString("base64");
+        }
+
+
+
+        const enviarPerfil = {
+          id: usuario.id,
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          telefono: usuario.telefono,
+          correo: usuario.correo,
+          imagen: imagenCompleta,
+          descripcion: usuario.descripcion
+        }
+
+        console.log(enviarPerfil)
+
+        res.json(enviarPerfil);
       }
     });
   } else {

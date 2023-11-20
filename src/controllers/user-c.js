@@ -28,6 +28,28 @@ class usuariosController {
       res.status(500).json({ Error: "Error al obtener usuarios" });
     }
   };
+  
+  editarFoto = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const imagenBuffer = req.file.buffer;
+      const contentType = req.file.mimetype;
+      const usuario = await Usuario.findOne({ _id: id });
+      const imagen = { data: imagenBuffer, contentType }
+
+      if (!usuario) {
+        return res.status(404).json({ mensaje: "Usuario no encontrado" });
+      }
+
+      await Usuario.findByIdAndUpdate(req.params.id, { imagen }, { new: true });
+
+      res.send({ mensaje: "Foto editada correctamente" });
+    } catch (error) {
+      console.error("Error al editar el usuario:", error);
+      res.status(500).json({ mensaje: "Error al editar el usuario" });
+    }
+  };
+
   editarUsuario = async (req, res) => {
     try {
       const { correo, datosActualizados } = req.body;
