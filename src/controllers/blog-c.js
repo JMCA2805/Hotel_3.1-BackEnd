@@ -63,11 +63,11 @@ class articulosController {
   editarArticulo = async (req, res) => {
     try {
       const { titulo, texto } = req.body;
-      console.log(titulo)
-      console.log(texto)
-
-      const imagenBuffer = req.file.buffer;
-      const contentType = req.file.mimetype;
+      console.log(titulo);
+      console.log(texto);
+  
+      const imagenBuffer = req.file ? req.file.buffer : undefined;
+      const contentType = req.file ? req.file.mimetype : undefined;
   
       const articulo = await articulos.findOne({ titulo });
   
@@ -76,16 +76,24 @@ class articulosController {
       }
   
       // Elimina la imagen existente del sistema de archivos
-
   
       // Actualiza los datos del artículo
-      articulo.titulo = titulo;
-      articulo.texto = texto;
-      articulo.imagen = { data: imagenBuffer, contentType };
+      if (titulo) {
+        articulo.titulo = titulo;
+      }
+      if (texto) {
+        articulo.texto = texto;
+      }
+      if (imagenBuffer && contentType) {
+        articulo.imagen = { data: imagenBuffer, contentType };
+      }
   
       await articulo.save();
+
+      const imagenCompleta =
+      "data:" + articulo.imagen.contentType + ";base64," + articulo.imagen.data.toString("base64");
   
-      res.json({ mensaje: "Artículo editado correctamente" });
+      res.json({ mensaje: "Artículo editado correctamente", imagen: imagenCompleta });
     } catch (error) {
       console.error("Error al editar el artículo:", error);
       res.status(500).json({ mensaje: "Error al editar el artículo" });
