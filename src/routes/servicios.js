@@ -24,9 +24,10 @@ router.get('/', (req, res) => {
 
 
 router.post('/add', upload.single('icono'), (req, res) => {
-  console.log("first")
     controller.agregarServicio(req, res);
 });
 
-
+router.delete('/delete', (req, res) => {
+  controller.eliminarServicio(req, res);
+});
 module.exports = router;

@@ -59,6 +59,24 @@ class ServiciosController {
       res.status(500).json({ Error: "Error al obtener servicioss" });
     }
   };
+
+  eliminarServicio = async (req, res) => {
+    try {
+      const servicio = req.body.servicio;
+      const ser = await Servicios.findOne({ "servicio": servicio });
+      if (!ser) {
+        return res.status(404).json({ mensaje: 'servicio no encontrado' });
+      }
+
+      await Servicios.deleteOne({'servicio': servicio});
+
+      res.json({ mensaje: 'Servicios eliminado correctamente' });
+      
+    } catch (error) {
+      console.error('Error al eliminar el servicio', error);
+      res.status(500).json({ mensaje: 'Error al eliminar el servicio' });
+    }
+  };
 }
 
 const serviciosC = new ServiciosController();
