@@ -62,6 +62,39 @@ class articulosController {
     }
   };
 
+  editarArticulo = async (req, res) => {
+    try {
+      const { titulo, texto } = req.body;
+      console.log(titulo)
+      console.log(texto)
+
+      const imagenBuffer = req.file.buffer;
+      const contentType = req.file.mimetype;
+  
+      const articulo = await articulos.findOne({ titulo });
+  
+      if (!articulo) {
+        return res.status(404).json({ mensaje: "Artículo no encontrado" });
+      }
+  
+      // Elimina la imagen existente del sistema de archivos
+
+  
+      // Actualiza los datos del artículo
+      articulo.titulo = titulo;
+      articulo.texto = texto;
+      articulo.imagen = { data: imagenBuffer, contentType };
+  
+      await articulo.save();
+  
+      res.json({ mensaje: "Artículo editado correctamente" });
+    } catch (error) {
+      console.error("Error al editar el artículo:", error);
+      res.status(500).json({ mensaje: "Error al editar el artículo" });
+    }
+  };
+
+
   eliminarArticulo = async (req, res) => {
     try {
       const titulo = req.body.titulo;
