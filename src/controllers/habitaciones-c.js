@@ -111,6 +111,73 @@ class habitacionesController {
       throw new Error('Error al buscar habitaciones');
     }
   };
+
+    editarHabitacion = async (req, res) => {
+    try {
+      const { nombre, descripcion, tarifa, cantidad, nombreviejo} = req.body;
+  
+      const imagenBuffer = req.file ? req.file.buffer : undefined;
+      const contentType = req.file ? req.file.mimetype : undefined;
+
+  
+      const habitacion = await habitaciones.findOne({ nombre: nombreviejo });
+      
+      console.log(habitacion)
+  
+      if (!habitacion) {
+        return res.status(404).json({ mensaje: "Habitacion no encontrada" });
+      }
+  
+      // Elimina la imagen existente del sistema de archivos
+  
+      // Actualiza los datos del artículo
+      if (nombre) {
+        habitacion.nombre = nombre;
+      }
+      if (descripcion) {
+        habitacion.descripcion = descripcion;
+      }
+      if (tarifa) {
+        habitacion.tarifa = tarifa;
+      }
+      if (cantidad) {
+        habitacion.cantidad = cantidad;
+      }
+      if (imagenBuffer && contentType) {
+        habitacion.imagen = { data: imagenBuffer, contentType };
+      }
+  
+      await habitacion.save();
+
+
+      const imagenCompleta =
+      "data:" + habitacion.imagen.contentType + ";base64," + habitacion.imagen.data.toString("base64");
+  
+      res.json({ mensaje: "Habitación editada correctamente", imagen: imagenCompleta });
+    } catch (error) {
+      console.error("Error al editar la habitación:", error);
+      res.status(500).json({ mensaje: "Error al editar la habitación" });
+    }
+  };
+
+  eliminarHabitacion = async (req, res) => {
+    try {
+      const nombre = req.body.nombre;
+
+      const habitacion = await habitaciones.findOne({ nombre: nombre });
+      if (!habitacion) {
+        return res.status(404).json({ mensaje: 'habitaciones no encontrado' });
+      }
+
+      await habitaciones.deleteOne({'nombre': nombre});
+
+      res.json({ mensaje: 'Producto eliminado correctamente' });
+      
+    } catch (error) {
+      console.error('Error al eliminar el habitacion', error);
+      res.status(500).json({ mensaje: 'Error al eliminar el habitacion' });
+    }
+  };
 }
 
 

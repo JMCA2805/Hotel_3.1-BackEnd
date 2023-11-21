@@ -24,6 +24,14 @@ router.post('/buscar', (req, res) => {
         console.error("Error al buscar habitaciones:", error);
         res.status(500).json({ Error: "Error al buscar habitaciones" });
       });
+});
+
+router.delete('/delete', (req, res) => {
+    controller.eliminarHabitacion(req, res);
+  });
+
+  router.put('/update', upload.single('imagen'), (req, res) => {
+    controller.editarHabitacion(req, res);
   });
 
 
