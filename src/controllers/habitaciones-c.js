@@ -66,7 +66,54 @@ class habitacionesController {
       res.status(500).json({ Error: "Error al obtener Habitaciones" });
     }
   };
+
+  buscarHabitaciones = async (filtro, busqueda, limite) => {
+    try {
+      let habitacionesEncontradas = [];
+      let data;
+      let imagenCompleta;
+  
+      if (filtro === 'Nombre') {
+        habitacionesEncontradas = await habitaciones.find({ nombre: busqueda });
+      } else if (filtro === 'Limite') {
+        console.log(limite)
+        const todasLasHabitaciones = await habitaciones.find({});
+        for (let i = 0; i < todasLasHabitaciones.length; i++) {
+          if (todasLasHabitaciones[i].cantidad >= limite) {
+            habitacionesEncontradas.push(todasLasHabitaciones[i]);
+          }
+        }
+        console.log(habitacionesEncontradas)
+      }
+  
+      for (let i = 0; i < habitacionesEncontradas.length; i++) {
+        data = habitacionesEncontradas[i].imagen.data;
+        imagenCompleta =
+          'data:' +
+          habitacionesEncontradas[i].imagen.contentType +
+          ';base64,' +
+          data.toString('base64');
+  
+        habitacionesEncontradas[i] = {
+          nombre: habitacionesEncontradas[i].nombre,
+          descripcion: habitacionesEncontradas[i].descripcion,
+          comodidades: habitacionesEncontradas[i].comodidades,
+          imagen: imagenCompleta,
+          tarifa: habitacionesEncontradas[i].tarifa,
+          cantidad: habitacionesEncontradas[i].cantidad,
+          review: habitacionesEncontradas[i].review,
+        };
+      }
+  
+      return habitacionesEncontradas;
+    } catch (error) {
+      console.log('Categoría incorrecta');
+      throw new Error('Error al buscar habitaciones');
+    }
+  };
 }
+
+
 
 const habitacionesC = new habitacionesController();
 
