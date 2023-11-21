@@ -46,4 +46,15 @@ const getComentarioHab = async (req, res) => {
   }
 };
 
-module.exports = { agregarComentario, getComentario, getComentarioHab };
+const filComentarioHab = async (req, res) => {
+  const {tipo}=req.body
+  console.log(tipo)
+  try {
+    const getComentarios = await Comentarios.find({tipo:tipo});
+    res.status(200).json(getComentarios);
+  } catch (error) {
+    res.status(500).send({ Error: "Error al obtener las reseñas" });
+  }
+};
+
+module.exports = { agregarComentario, getComentario, getComentarioHab, filComentarioHab };
