@@ -31,7 +31,6 @@ const getUserById = async (req, res) => {
           descripcion: usuario.descripcion
         }
 
-        console.log(enviarPerfil)
 
         res.json(enviarPerfil);
       }

@@ -63,8 +63,6 @@ class articulosController {
   editarArticulo = async (req, res) => {
     try {
       const { titulo, texto } = req.body;
-      console.log(titulo);
-      console.log(texto);
   
       const imagenBuffer = req.file ? req.file.buffer : undefined;
       const contentType = req.file ? req.file.mimetype : undefined;

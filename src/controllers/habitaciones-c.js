@@ -76,14 +76,12 @@ class habitacionesController {
       if (filtro === 'Nombre') {
         habitacionesEncontradas = await habitaciones.find({ nombre: busqueda });
       } else if (filtro === 'Limite') {
-        console.log(limite)
         const todasLasHabitaciones = await habitaciones.find({});
         for (let i = 0; i < todasLasHabitaciones.length; i++) {
           if (todasLasHabitaciones[i].cantidad >= limite) {
             habitacionesEncontradas.push(todasLasHabitaciones[i]);
           }
         }
-        console.log(habitacionesEncontradas)
       }
   
       for (let i = 0; i < habitacionesEncontradas.length; i++) {
@@ -107,7 +105,6 @@ class habitacionesController {
   
       return habitacionesEncontradas;
     } catch (error) {
-      console.log('Categoría incorrecta');
       throw new Error('Error al buscar habitaciones');
     }
   };
@@ -122,7 +119,6 @@ class habitacionesController {
   
       const habitacion = await habitaciones.findOne({ nombre: nombreviejo });
       
-      console.log(habitacion)
   
       if (!habitacion) {
         return res.status(404).json({ mensaje: "Habitacion no encontrada" });
